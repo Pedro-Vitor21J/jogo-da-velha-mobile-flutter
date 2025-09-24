@@ -7,35 +7,31 @@ class VelhaView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Ouve as mudanças no VelhaViewModel
     final viewModel = Provider.of<VelhaViewModel>(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Jogador da Vez
-          Expanded(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                'Jogador da vez: ${viewModel.jogadorAtual}',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+            child: Text(
+              'Jogador da vez: ${viewModel.jogadorAtual}',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ),
           ),
 
           // Tabuleiro
           Expanded(
-            flex: 5,
             child: GridView.builder(
+              shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 5,
@@ -49,7 +45,6 @@ class VelhaView extends StatelessWidget {
 
                 return InkWell(
                   onTap: () {
-                    // Chama a função do ViewModel com a jogada
                     viewModel.fazerJogada(linhaJogada, colunaJogada);
                   },
                   child: Container(
@@ -72,39 +67,38 @@ class VelhaView extends StatelessWidget {
           ),
 
           // Resultado do Jogo
-          Expanded(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                viewModel.resultadoDoJogo ??
-                    'Ganhador', // Usa o valor do ViewModel
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 50),
+            child: Text(
+              viewModel.resultadoDoJogo ?? '',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ),
           ),
 
           // Botão Reset
-          Expanded(
-            flex: 1,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
-              onPressed: () {
-                viewModel.resetarJogo(); // Chama a função de reset do ViewModel
-              },
-              child: const Text(
-                'Reset',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.purple,
+              fixedSize: const Size(150, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
+            onPressed: () {
+              viewModel.resetarJogo();
+            },
+            child: const Text(
+              'Reset',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
           ),
+          const SizedBox(height: 30),
         ],
       ),
     );

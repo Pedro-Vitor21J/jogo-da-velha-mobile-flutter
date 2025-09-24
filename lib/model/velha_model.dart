@@ -21,11 +21,6 @@ class VelhaModel {
 
   void adicionarJogadaNoTabuleiro() {
     tabuleiro[linhaJogada][colunaJogada] = jogadorAtual;
-    /*if (jogadorAtual == 'X') {
-      jogadorAtual = 'O';
-    } else if (jogadorAtual == 'O') {
-      jogadorAtual = 'X';
-    }*/
   }
 
   bool? verificarGanhador(String jogadorAtual) {
@@ -90,40 +85,15 @@ class VelhaModel {
     return true;
   }
 
-  /*String? jogoDaVelha() {
-    while (jogoAtivo == true) {
-      if (tabuleiro[linhaJogada][colunaJogada].isEmpty) {
-        adicionarJogadaNoTabuleiro();
-        if (verificarGanhador(jogadorAtual)!) {
-          print('O JOGADOR ${jogadorAtual} GANHOU!');
-          return resultadoDoJogo = 'O JOGADOR ${jogadorAtual} GANHOU!';
-        } else if (verificarEmpate()) {
-          print('JOGO EMPATADO!');
-          return resultadoDoJogo = 'JOGO EMPATADO!';
-        }
-      } else {
-        print('POSIÇÃO OCUPADA!');
-        return resultadoDoJogo = 'POSIÇÃO OCUPADA!';
-      }
-    }
-  }*/
-
   String? jogoDaVelha() {
     if (tabuleiro[linhaJogada][colunaJogada].isEmpty) {
-      // 1. O jogador faz a jogada
       tabuleiro[linhaJogada][colunaJogada] = jogadorAtual;
-
-      // 2. Cria uma variável para o jogador que acabou de jogar
       final jogadorQueFezAJogada = jogadorAtual;
-
-      // 3. Agora, troca o jogador para a próxima rodada
       if (jogadorAtual == 'X') {
         jogadorAtual = 'O';
       } else {
         jogadorAtual = 'X';
       }
-
-      // 4. Verifica se o jogador que acabou de jogar GANHOU
       if (verificarGanhador(jogadorQueFezAJogada)!) {
         jogoAtivo = false;
         resultadoDoJogo = 'O JOGADOR ${jogadorQueFezAJogada} GANHOU!';
@@ -131,8 +101,6 @@ class VelhaModel {
         jogoAtivo = false;
         resultadoDoJogo = 'JOGO EMPATADO!';
       } else {
-        // Se não há ganhador ou empate, o jogo continua.
-        // O resultado permanece vazio ou com uma mensagem de "próxima rodada".
         resultadoDoJogo = '';
       }
     } else {
