@@ -23,12 +23,12 @@ class VelhaModel {
     tabuleiro[linhaJogada][colunaJogada] = jogadorAtual;
   }
 
-  bool? verificarGanhador(String jogadorAtual) {
+  bool? verificarGanhador(String jogadorQueFezAJogada) {
     //Verifica Linha
     for (int i = 0; i < 3; i++) {
-      if (tabuleiro[i][0] == jogadorAtual &&
-          tabuleiro[i][1] == jogadorAtual &&
-          tabuleiro[i][2] == jogadorAtual) {
+      if (tabuleiro[i][0] == jogadorQueFezAJogada &&
+          tabuleiro[i][1] == jogadorQueFezAJogada &&
+          tabuleiro[i][2] == jogadorQueFezAJogada) {
         print('Ganhou Linha');
         //Se o jogador ganhou, retorne true
         return true;
@@ -37,9 +37,9 @@ class VelhaModel {
 
     //Verifica Coluna
     for (int i = 0; i < 3; i++) {
-      if (tabuleiro[0][i] == jogadorAtual &&
-          tabuleiro[1][i] == jogadorAtual &&
-          tabuleiro[2][i] == jogadorAtual) {
+      if (tabuleiro[0][i] == jogadorQueFezAJogada &&
+          tabuleiro[1][i] == jogadorQueFezAJogada &&
+          tabuleiro[2][i] == jogadorQueFezAJogada) {
         print('Ganhou Coluna');
         //Se o jogador ganhou, retorne true
         return true;
@@ -48,9 +48,9 @@ class VelhaModel {
 
     //Verifica Diagonal 1
     for (int i = 0; i < 3; i++) {
-      if (tabuleiro[0][0] == jogadorAtual &&
-          tabuleiro[1][1] == jogadorAtual &&
-          tabuleiro[2][2] == jogadorAtual) {
+      if (tabuleiro[0][0] == jogadorQueFezAJogada &&
+          tabuleiro[1][1] == jogadorQueFezAJogada &&
+          tabuleiro[2][2] == jogadorQueFezAJogada) {
         print('Ganhou Diagonal 1');
         //Se o jogador ganhou, retorne true
         return true;
@@ -59,9 +59,9 @@ class VelhaModel {
 
     //Verifica Diagonal 2
     for (int i = 0; i < 3; i++) {
-      if (tabuleiro[0][2] == jogadorAtual &&
-          tabuleiro[1][1] == jogadorAtual &&
-          tabuleiro[2][0] == jogadorAtual) {
+      if (tabuleiro[0][2] == jogadorQueFezAJogada &&
+          tabuleiro[1][1] == jogadorQueFezAJogada &&
+          tabuleiro[2][0] == jogadorQueFezAJogada) {
         print('Ganhou Diagonal 2');
         //Se o jogador ganhou, retorne true
         return true;
@@ -88,23 +88,21 @@ class VelhaModel {
   String? jogoDaVelha() {
     if (tabuleiro[linhaJogada][colunaJogada].isEmpty) {
       tabuleiro[linhaJogada][colunaJogada] = jogadorAtual;
-      final jogadorQueFezAJogada = jogadorAtual;
+      String jogadorQueFezAJogada = jogadorAtual;
       if (jogadorAtual == 'X') {
         jogadorAtual = 'O';
       } else {
         jogadorAtual = 'X';
       }
       if (verificarGanhador(jogadorQueFezAJogada)!) {
-        jogoAtivo = false;
         resultadoDoJogo = 'O JOGADOR ${jogadorQueFezAJogada} GANHOU!';
-      } else if (verificarEmpate()) {
         jogoAtivo = false;
+      } else if (verificarEmpate()) {
         resultadoDoJogo = 'JOGO EMPATADO!';
+        jogoAtivo = false;
       } else {
         resultadoDoJogo = '';
       }
-    } else {
-      resultadoDoJogo = 'POSIÇÃO OCUPADA!';
     }
     return resultadoDoJogo;
   }
@@ -121,5 +119,4 @@ class VelhaModel {
     colunaJogada = -1;
     resultadoDoJogo = '';
   }
-
 }

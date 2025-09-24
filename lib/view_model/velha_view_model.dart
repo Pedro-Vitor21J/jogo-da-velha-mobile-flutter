@@ -16,6 +16,7 @@ class VelhaViewModel extends ChangeNotifier {
   String get jogadorAtual => _velhaModel.jogadorAtual;
   List<List<String>> get tabuleiro => _velhaModel.tabuleiro;
   String? get resultadoDoJogo => _velhaModel.resultadoDoJogo;
+  bool get jogoAtivo => _velhaModel.jogoAtivo;
 
   void fazerJogada(int linha, int coluna) {
     if (_velhaModel.tabuleiro[linha][coluna].isEmpty) {

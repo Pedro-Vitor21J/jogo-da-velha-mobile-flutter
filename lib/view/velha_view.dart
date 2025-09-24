@@ -45,7 +45,8 @@ class VelhaView extends StatelessWidget {
 
                 return InkWell(
                   onTap: () {
-                    viewModel.fazerJogada(linhaJogada, colunaJogada);
+                    if (viewModel.jogoAtivo)
+                      viewModel.fazerJogada(linhaJogada, colunaJogada);
                   },
                   child: Container(
                     color: Colors.purple,
